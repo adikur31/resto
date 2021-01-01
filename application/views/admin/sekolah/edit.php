@@ -5,6 +5,24 @@
  ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
+	<?php
+		if (form_error('latitude') || form_error('longtitude')) {
+			echo '<div class="alert alert-danger" role="alert">Gagal simpan, Pilih Lokasi Sekolah</div>';
+		} 	 
+	?>
+	<div class="row">
+		<div class="col-lg">
+			<div class="card shadow mb-4">
+			    <div class="card-header py-3">
+			      <h6 class="m-0 font-weight-bold text-primary">Pilih Lokasi Sekolah</h6>
+			    </div>
+			    <div class="card-body">
+			    	<div id="map" style="height: 350px;">
+			    	</div>
+			    </div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg">
 			<div class="card shadow mb-4">
@@ -50,14 +68,14 @@
 								<div class="col">
 									<div class="form-group">
 									    <label for="latitude">Latitude</label>
-									    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Masukkan Latitude" value="<?= $sekolah_data['latitude'] ?>">
+									    <input readonly type="text" class="form-control" id="latitude" name="latitude" placeholder="Masukkan Latitude" value="<?= $sekolah_data['latitude'] ?>">
 									    <?= form_error('latitude', '<small class="text-danger">', '</small>') ?>
 								  	</div>		
 								</div>
 								<div class="col">
 									<div class="form-group">
 									    <label for="longtitude">Longtitude</label>
-									    <input type="text" class="form-control" id="longtitude" name="longtitude" placeholder="Masukkan Longtitude" value="<?= $sekolah_data['longtitude'] ?>">
+									    <input readonly type="text" class="form-control" id="longtitude" name="longtitude" placeholder="Masukkan Longtitude" value="<?= $sekolah_data['longtitude'] ?>">
 									    <?= form_error('longtitude', '<small class="text-danger">', '</small>') ?>
 								  	</div>		
 								</div>
@@ -80,3 +98,29 @@
 <?php 
 	$this->load->view('templates/footer');
  ?>
+
+<script type="text/javascript">
+	
+	var map = L.map('map').setView([-7.25, 112.73], 13);
+	var base_url = window.location.origin + '/' + window.location.pathname.split ('/') [1] + '/';
+	var datasekolah = <?php echo json_encode($sekolah_data) ?>;
+	console.log(datasekolah.latitude);
+
+	// add map
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
+
+	// add marker
+	var sekolah = L.marker([datasekolah.latitude, datasekolah.longtitude], {draggable: 'true', autoPan: 'true'}).addTo(map);
+	sekolah.bindPopup('Drag ke lokasi sekolah <br>'+ sekolah.getLatLng()).openPopup();
+	
+	// set drag marker
+	sekolah.on("drag", function(e) {
+		$('#latitude').val(sekolah.getLatLng().lat);
+		$('#longtitude').val(sekolah.getLatLng().lng);
+		sekolah.bindPopup('Drag ke lokasi anda <br>'+ sekolah.getLatLng()).openPopup();
+	});
+
+	
+</script>

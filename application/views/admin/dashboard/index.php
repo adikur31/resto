@@ -37,11 +37,11 @@
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Data Sekolah</div>
+                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Data Restoran</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $sekolah_total ?></div>
                 </div>
                 <div class="col-auto">
-                  <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+                  <i class="fas fa-sitemap fa-2x text-gray-300"></i>
                 </div>
               </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Data Kriteria</div>
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Penjualan</div>
                       <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $kriteria_total ?></div>
                 </div>
                 <div class="col-auto">
@@ -71,7 +71,7 @@
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Data Bobot Sekolah</div>
+                  <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Menu</div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                 </div>
                 <div class="col-auto">

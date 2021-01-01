@@ -14,6 +14,11 @@ class Auth extends CI_Controller {
 
 	public function index()
 	{
+		$this->load->view('auth/login');
+		
+	}
+	public function login()
+	{
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
@@ -49,17 +54,16 @@ class Auth extends CI_Controller {
 					}	
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password salah</div>');	
-					redirect('auth');
+					redirect('Auth/login');
 				}
 				
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akun tidak terdaftar</div>');	
-				redirect('auth');
+				redirect('Auth/login');
 			}
 			
 		}
 	}
-
 	public function register()
 	{	
 		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
@@ -99,7 +103,7 @@ class Auth extends CI_Controller {
 		$this->session->unset_userdata('id_role');
 
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Logout</div>');
-		redirect('auth');
+		redirect('Auth/login');
 	}
 
 }
