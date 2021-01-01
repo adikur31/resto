@@ -29,12 +29,13 @@ class PilihRole extends CI_Controller {
 				'id_role'	=> $this->input->post('pilih_role', true),
 			];	
 			$this->session->set_userdata($data);
-			// if ($this->input->post('pilih_role', true) == 1) {
+			if ($this->input->post('pilih_role', true) == 1) {
 				redirect('/admin/dashboard');
-			// } else {
-			// 	echo "halaman user";
-			// 	// redirect('user');
-			// }
+			} else if ($this->input->post('pilih_role', true) == 2) {
+				redirect('/kasir/dashboard');
+			} else if ($this->input->post('pilih_role', true) == 3) {
+				redirect('/waiter/dashboard');
+			}
 		}
 	}
 

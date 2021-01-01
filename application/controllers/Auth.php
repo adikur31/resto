@@ -10,6 +10,7 @@ class Auth extends CI_Controller {
 		$this->load->model('Auth_model');
 		$this->load->model('User_model');
 		$this->load->model('Detail_role_model');
+		$this->load->model('Data_restoran_model');
 	}
 
 	public function index()
@@ -35,23 +36,28 @@ class Auth extends CI_Controller {
 				if (password_verify($password, $user[0]['password'])) {
 					if (count($user) > 1) {
 						$this->session->set_userdata($data);$data = [
-							'username'	=> $user[0]['username'],
+							'username'		=> $user[0]['username'],
+							'id_restoran'	=> $user[0]['id_restoran'],
 						];
 						$this->session->set_userdata($data);
 						redirect('pilihrole');
 					}else{
 						$data = [
-							'username'	=> $user[0]['username'],
-							'id_role'	=> $user[0]['id_role'],
+							'username'		=> $user[0]['username'],
+							'id_role'		=> $user[0]['id_role'],
+							'id_restoran'	=> $user[0]['id_restoran'],
 						];
 						$this->session->set_userdata($data);
-						// if ($user[0]['id_role'] == 1) {
+
+						if ($user[0]['id_role'] == 1) {
 							redirect('/admin/dashboard');
-						// } else {
-						// 	echo "halaman user";
-						// 	// redirect('user');
-						// }
-					}	
+						} else if ($user[0]['id_role'] == 2) {
+							redirect('/kasir/dashboard');
+						} else if ($user[0]['id_role'] == 3) {
+							redirect('/waiter/dashboard');
+						}
+					}
+					
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password salah</div>');	
 					redirect('Auth/login');
@@ -73,25 +79,34 @@ class Auth extends CI_Controller {
 			'min_length'	=> 'Password min 6 char'
 		]);
 		$this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+		$this->form_validation->set_rules('nama_restoran', 'Nama Restoran', 'trim|required');
+		$this->form_validation->set_rules('alamat_restoran', 'Alamat Restoran', 'trim|required');
 
 		if ($this->form_validation->run() == false) {
 			$data['title'] = 'Register';		
 			$this->load->view('auth/register', $data);						
 		} else {
+			$data_resto = [
+				'nama_resto'		=> htmlspecialchars($this->input->post('nama_restoran', true)),
+				'alamat_resto'		=> htmlspecialchars($this->input->post('alamat_restoran', true)),
+			];
+			$id_resto_insert = $this->Data_restoran_model->create($data_resto);
+
 			$data = [
 				'nama'			=> htmlspecialchars($this->input->post('nama', true)),
 				'username'		=> htmlspecialchars($this->input->post('username', true)),
 				'password'		=> password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+				'id_restoran'	=> $id_resto_insert, 
 				'foto'			=> 'default.jpg',
 			];
-
 			$id_user_insert = $this->User_model->create($data);
-			$role = $this->input->post('role', true);
+			
 			$data_detail = [
 				'id_user' => $id_user_insert,
-				'id_role' => 2,
+				'id_role' => 1,
 			];
 			$this->Detail_role_model->create($data_detail);
+
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil mendaftar. Silahkan login</div>');
 			redirect('auth');
 		}	

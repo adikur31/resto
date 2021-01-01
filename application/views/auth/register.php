@@ -15,7 +15,7 @@
             </div>
             <form class="user" method="post" action="<?=base_url('auth/register') ?>">
               <div class="form-group">
-                <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= set_value('nama') ?>">
+                <input type="text" class="form-control form-control-user" id="nama" name="nama" placeholder="Nama User" value="<?= set_value('nama') ?>">
                 <?= form_error('nama', '<small class="text-danger pl-3">', '</small>') ?>
               </div>
               <div class="form-group">
@@ -30,6 +30,14 @@
                 <div class="col-sm-6">
                   <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Ulangi Password">
                 </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control form-control-user" id="nama_restoran" name="nama_restoran" placeholder="Nama Restoran" value="<?= set_value('nama_restoran') ?>">
+                <?= form_error('nama_restoran', '<small class="text-danger pl-3">', '</small>') ?>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control form-control-user" id="alamat_restoran" name="alamat_restoran" placeholder="Alamat Restoran" value="<?= set_value('alamat_restoran') ?>">
+                <?= form_error('alamat_restoran', '<small class="text-danger pl-3">', '</small>') ?>
               </div>
               <button type="submit" class="btn btn-primary btn-user btn-block">
                 Daftar

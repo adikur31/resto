@@ -17,9 +17,9 @@ class Dashboard extends CI_Controller {
 	{
 		$data['title'] = "Dashboard";	
 		$data['user'] = $this->User_model->getUserWithUsername($this->session->userdata('username'));
-		$data['user_total'] = $this->Dashboard_model->totalUser();
-		$data['kriteria_total'] = $this->Dashboard_model->totalKriteria();
-		$data['sekolah_total'] = $this->Dashboard_model->totalSekolah();
+		// $data['user_total'] = $this->Dashboard_model->totalUser();
+		// $data['kriteria_total'] = $this->Dashboard_model->totalKriteria();
+		// $data['sekolah_total'] = $this->Dashboard_model->totalSekolah();
 
 		$this->load->view('admin/dashboard/index', $data);	
 	}

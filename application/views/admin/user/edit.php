@@ -36,7 +36,7 @@
 							    <div class="form-check">
 							    	<?php foreach ($role as $key) { ?>
 								      <input class="form-check-input" type="checkbox" id="checkboxrole<?= $key['id_role'] ?>" name="role[]" value="<?= $key['id_role'] ?>"  
-								      <?php echo $detail_role[0]['id_user'] == $user['id_user'] && $key['id_role'] == 1 ? 'disabled ' : ''; ?>
+								      <?php echo $detail_role[0]['id_user'] == $user['id_user'] && $key['id_role'] == 1 ? 'onclick="return false"' : ''; ?>
 								      <?php foreach ($detail_role as $key2) {
 								      	echo $key2['id_role'] == $key['id_role'] ? 'checked' : '';
 								      } ?>>
